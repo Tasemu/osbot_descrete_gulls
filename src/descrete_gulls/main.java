@@ -65,7 +65,6 @@ public class main extends Script {
 		case ATTACK:
 			target = getNpcs().closest("Seagull");
 			if (target != null) {
-				getCamera().toEntity(target);
 				if (target.interact("Attack")) {
 					new ConditionalSleep(5000) {
 						@Override
