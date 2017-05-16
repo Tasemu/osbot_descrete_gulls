@@ -27,6 +27,11 @@ public class main extends Script {
 	    }
 	);
 	private NPC target;
+	private enum State {
+		WAIT,
+		WALK,
+		ATTACK
+	};
 
 	@Override
 	public void onStart() {
@@ -34,16 +39,10 @@ public class main extends Script {
 		log("version: " + getVersion());
 	}
 
-	private enum State {
-		WAIT,
-		WALK,
-		ATTACK
-	};
-
 	private State getState() {
 		NPC gull = getNpcs().closest("Seagull");
 		
-		if ((target != null && target.exists()) || (combat.isFighting() && combat.isAutoRetaliateOn()))
+		if (target != null || (combat.isFighting() && combat.isAutoRetaliateOn()))
 			return State.WAIT;
 		
 		if (!docks.contains(myPlayer()))
@@ -96,9 +95,6 @@ public class main extends Script {
 	public void onPaint(Graphics2D g) {
 		g.setColor(Color.WHITE);
 		g.drawString("Status:  " + getState(), 10, 40);
-		if (target != null && target.exists()) {
-			
-		}
 	}
 
 }
