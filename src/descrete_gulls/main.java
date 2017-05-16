@@ -2,6 +2,7 @@ package descrete_gulls;
 
 import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.model.NPC;
+import org.osbot.rs07.api.util.GraphicUtilities;
 import org.osbot.rs07.script.Script;
 import org.osbot.rs07.script.ScriptManifest;
 import org.osbot.rs07.utility.ConditionalSleep;
@@ -95,6 +96,9 @@ public class main extends Script {
 	public void onPaint(Graphics2D g) {
 		g.setColor(Color.WHITE);
 		g.drawString("Status:  " + getState(), 10, 40);
+		if (target != null && target.exists()) {
+			GraphicUtilities.drawWireframe(getBot(), g, target);
+		}
 	}
 
 }
