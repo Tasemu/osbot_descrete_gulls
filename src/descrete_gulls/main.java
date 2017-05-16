@@ -1,7 +1,6 @@
 package descrete_gulls;
 
 import org.osbot.rs07.api.map.Area;
-import org.osbot.rs07.api.model.Entity;
 import org.osbot.rs07.api.model.NPC;
 import org.osbot.rs07.script.Script;
 import org.osbot.rs07.script.ScriptManifest;
@@ -44,16 +43,15 @@ public class main extends Script {
 	private State getState() {
 		NPC gull = getNpcs().closest("Seagull");
 		
-		if (target.exists())
+		if ((target != null && target.exists()) || (combat.isFighting() && combat.isAutoRetaliateOn()))
 			return State.WAIT;
 		
-		if (!docks.contains(myPlayer()) && !target.exists())
+		if (!docks.contains(myPlayer()))
 			return State.WALK;
 		
 		if (
 			gull != null &&
 			!gull.isUnderAttack() &&
-			!myPlayer().isUnderAttack() &&
 			!gull.isHitBarVisible()
 		)
 			return State.ATTACK;
@@ -98,6 +96,9 @@ public class main extends Script {
 	public void onPaint(Graphics2D g) {
 		g.setColor(Color.WHITE);
 		g.drawString("Status:  " + getState(), 10, 40);
+		if (target != null && target.exists()) {
+			
+		}
 	}
 
 }
